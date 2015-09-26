@@ -161,5 +161,3 @@ void loop()
    
   gw.sleep(SLEEP_TIME); //sleep a bit
 }
-
-
