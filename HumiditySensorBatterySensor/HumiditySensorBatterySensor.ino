@@ -72,7 +72,7 @@ float lastTemp;
 float lastHum;
 boolean metric = true; 
 MyMessage msgHum(CHILD_ID_HUM, V_HUM);
-MyMessage msgTemp(CHILD_ID_TEMP, V_TEMP);
+// MyMessage msgTemp(CHILD_ID_TEMP, V_TEMP);
 
 
 void setup()  
@@ -88,10 +88,10 @@ void setup()
   dht.setup(HUMIDITY_SENSOR_DIGITAL_PIN); 
 
   // Send the Sketch Version Information to the Gateway
-  gw.sendSketchInfo("TempHum", "1.0");
+  gw.sendSketchInfo("TempHum", "1.1");
 
   // Register all sensors to gw (they will be created as child devices)
-  gw.present(CHILD_ID_HUM, S_HUM);
+  // gw.present(CHILD_ID_HUM, S_HUM);
   gw.present(CHILD_ID_TEMP, S_TEMP);
   
   metric = gw.getConfig().isMetric;  
@@ -112,6 +112,7 @@ void loop()
     gw.send(msgTemp.set(temperature, 1));
   }
   
+  /*
   float humidity = dht.getHumidity();
   if (isnan(humidity)) {
       Serial.println(". Failed reading humidity from DHT");
@@ -119,11 +120,15 @@ void loop()
       lastHum = humidity;
       gw.send(msgHum.set(humidity, 1));
   }
+  */
 
   Serial.print("T: ");
   Serial.print(temperature);
+  /*
   Serial.print("; H: ");
   Serial.println(humidity);
+  */
+  
 
  // get the battery Voltage
   int sensorValue = analogRead(BATTERY_SENSE_PIN);
@@ -139,7 +144,7 @@ void loop()
    int batteryPcnt = sensorValue / 10;
 
    #ifdef DEBUG
-   Serial.print("Battery Voltage: ");
+   Serial.print("\nBattery Voltage: ");
    Serial.print(batteryV);
    Serial.println(" V");
 
